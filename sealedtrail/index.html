@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SealedTrail — Compliance-grade audit logs for Rails</title>
+<meta name="description" content="SealedTrail is a Rails gem that records who changed, viewed and exported sensitive records in a tamper-evident log, with retention policies and auditor-ready reports for SOC 2, HIPAA, GDPR and India's DPDP Act.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'], mono: ['JetBrains Mono','ui-monospace','monospace'] },
+    colors: { brand: { 50:'#eef6ff',100:'#d9eaff',400:'#5aa2ff',500:'#2f7df6',600:'#1f63db',700:'#1b4fb0',900:'#0f2a5c' } }
+  } } }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  .grid-bg{background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px}
+</style>
+</head>
+<body class="bg-white text-slate-800 font-sans antialiased">
+
+<!-- Placeholder: replace CHECKOUT_URL with your Lemon Squeezy checkout link before publishing -->
+<!-- e.g. https://YOURSTORE.lemonsqueezy.com/buy/VARIANT_ID -->
+
+<header class="absolute inset-x-0 top-0 z-20">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+    <a href="#" class="flex items-center gap-2 text-white">
+      <svg class="h-7 w-7" viewBox="0 0 32 32" fill="none"><rect x="3" y="3" width="26" height="26" rx="7" fill="#2f7df6"/><path d="M10 12h12M10 16h12M10 20h7" stroke="white" stroke-width="2.2" stroke-linecap="round"/><circle cx="22" cy="21" r="3.2" fill="#0f2a5c" stroke="white" stroke-width="1.6"/></svg>
+      <span class="text-lg font-bold tracking-tight">SealedTrail</span>
+    </a>
+    <div class="hidden items-center gap-8 text-sm text-slate-300 md:flex">
+      <a href="#features" class="hover:text-white">Features</a>
+      <a href="#compliance" class="hover:text-white">Compliance</a>
+      <a href="#pricing" class="hover:text-white">Pricing</a>
+      <a href="#faq" class="hover:text-white">FAQ</a>
+    </div>
+    <a href="#pricing" class="rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/20 hover:bg-white/20">Pre-order</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="relative overflow-hidden bg-slate-950 grid-bg">
+  <div class="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-brand-600/30 blur-3xl"></div>
+  <div class="relative mx-auto grid max-w-6xl gap-12 px-6 pb-24 pt-36 lg:grid-cols-2 lg:items-center">
+    <div>
+      <span class="inline-flex items-center gap-2 rounded-full bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-400 ring-1 ring-brand-500/30">
+        <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> Early access · founding price $499/yr
+      </span>
+      <h1 class="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">
+        Audit logs your auditor will actually accept.
+      </h1>
+      <p class="mt-6 text-lg leading-relaxed text-slate-300">
+        SealedTrail is a Rails gem that records who <b class="text-white">changed</b>, <b class="text-white">viewed</b> and <b class="text-white">exported</b> sensitive records, in a tamper-evident log you can prove hasn't been edited. Retention rules and SOC 2, HIPAA, GDPR and DPDP evidence reports included.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="mailto:steadybyte.hq@gmail.com?subject=SealedTrail%20early%20access" class="rounded-lg bg-brand-500 px-6 py-3 font-semibold text-white shadow-lg shadow-brand-500/30 hover:bg-brand-600">Pre-order for $499/yr</a>
+        <a href="#features" class="rounded-lg px-6 py-3 font-semibold text-white ring-1 ring-white/20 hover:bg-white/10">See what's included →</a>
+      </div>
+      <p class="mt-4 text-sm text-slate-400">Full refund if we don't ship v1.0 to you by the promised date. Lives in your own database: no SaaS, no data leaves your app.</p>
+    </div>
+    <div class="rounded-2xl bg-slate-900/80 p-1 shadow-2xl ring-1 ring-white/10">
+      <div class="flex items-center gap-1.5 border-b border-white/5 px-4 py-3">
+        <span class="h-3 w-3 rounded-full bg-red-400/70"></span><span class="h-3 w-3 rounded-full bg-yellow-400/70"></span><span class="h-3 w-3 rounded-full bg-green-400/70"></span>
+        <span class="ml-3 font-mono text-xs text-slate-500">app/models/patient.rb</span>
+      </div>
+<pre class="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-slate-300"><span class="text-pink-400">class</span> <span class="text-sky-300">Patient</span> &lt; <span class="text-sky-300">ApplicationRecord</span>
+  <span class="text-emerald-300">sealed_trail</span> <span class="text-amber-300">sensitive:</span> %i[dob diagnosis ssn],
+               <span class="text-amber-300">track_reads:</span> <span class="text-pink-400">true</span>,
+               <span class="text-amber-300">retain_for:</span> <span class="text-violet-300">6</span>.years
+<span class="text-pink-400">end</span>
+
+<span class="text-slate-500"># Who looked at this patient last week?</span>
+<span class="text-sky-300">SealedTrail</span>.access_report(<span class="text-amber-300">record:</span> patient, <span class="text-amber-300">since:</span> <span class="text-violet-300">7</span>.days.ago)
+
+<span class="text-slate-500"># Prove nothing was altered or deleted</span>
+$ bin/rails sealed_trail:verify
+<span class="text-emerald-400">✓ 1,284,301 entries · hash chain intact · 0 gaps</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="mx-auto max-w-6xl px-6 py-20">
+  <div class="max-w-3xl">
+    <p class="text-sm font-semibold uppercase tracking-wider text-brand-600">The problem</p>
+    <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">paper_trail tracks changes. Auditors ask about access.</h2>
+    <p class="mt-4 text-lg text-slate-600">Change-history gems are great for "what did this record look like yesterday?" But when an audit comes, the questions are different, and most Rails teams end up hand-rolling the answers the week before the auditor arrives.</p>
+  </div>
+  <div class="mt-12 grid gap-6 md:grid-cols-3">
+    <div class="rounded-2xl border border-slate-200 p-6">
+      <div class="text-2xl">👁️</div>
+      <h3 class="mt-3 font-semibold text-slate-900">"Who viewed this patient's record?"</h3>
+      <p class="mt-2 text-sm text-slate-600">Change-tracking gems only log writes. Logging reads and exports of sensitive data means custom controller hooks in every action.</p>
+    </div>
+    <div class="rounded-2xl border border-slate-200 p-6">
+      <div class="text-2xl">🔏</div>
+      <h3 class="mt-3 font-semibold text-slate-900">"How do you know nobody edited the log?"</h3>
+      <p class="mt-2 text-sm text-slate-600">An audits table any admin can <code class="rounded bg-slate-100 px-1">UPDATE</code> isn't evidence. You need to prove integrity.</p>
+    </div>
+    <div class="rounded-2xl border border-slate-200 p-6">
+      <div class="text-2xl">🗄️</div>
+      <h3 class="mt-3 font-semibold text-slate-900">"What's your retention policy, and is it enforced?"</h3>
+      <p class="mt-2 text-sm text-slate-600">Versions tables quietly grow to hundreds of GB, while GDPR erasure requests collide with "never delete audit data".</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="bg-slate-50 py-20">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-wider text-brand-600">Features</p>
+      <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">Open-source core. Compliance features in Pro.</h2>
+      <p class="mt-4 text-lg text-slate-600">Start free with change auditing. Upgrade when the audit is on the calendar.</p>
+    </div>
+    <div class="mt-12 grid gap-6 lg:grid-cols-2">
+      <div class="rounded-2xl bg-white p-8 ring-1 ring-slate-200">
+        <div class="flex items-center justify-between"><h3 class="text-xl font-bold text-slate-900">Core</h3><span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">Free · MIT</span></div>
+        <ul class="mt-6 space-y-3 text-slate-700">
+          <li class="flex gap-3"><span class="text-emerald-500">✓</span> Create / update / destroy auditing for ActiveRecord</li>
+          <li class="flex gap-3"><span class="text-emerald-500">✓</span> Actor, IP, user agent and request ID on every entry</li>
+          <li class="flex gap-3"><span class="text-emerald-500">✓</span> Field filtering and masking for secrets and PII</li>
+          <li class="flex gap-3"><span class="text-emerald-500">✓</span> Works alongside paper_trail / audited, with an import task</li>
+          <li class="flex gap-3"><span class="text-emerald-500">✓</span> PostgreSQL and MySQL, Rails 7.1+</li>
+        </ul>
+      </div>
+      <div class="relative rounded-2xl bg-slate-900 p-8 text-slate-200 ring-1 ring-slate-900">
+        <div class="flex items-center justify-between"><h3 class="text-xl font-bold text-white">Pro</h3><span class="rounded-full bg-brand-500 px-3 py-1 text-xs font-semibold text-white">Commercial licence</span></div>
+        <p class="mt-1 text-sm text-slate-400">Everything in Core, plus:</p>
+        <ul class="mt-5 space-y-3">
+          <li class="flex gap-3"><span class="text-brand-400">◆</span><span><b class="text-white">Read &amp; export logging.</b> Record views, index listings, CSV/PDF exports and API reads of sensitive models, with one line per model.</span></li>
+          <li class="flex gap-3"><span class="text-brand-400">◆</span><span><b class="text-white">Tamper-evident log.</b> SHA-256 hash chain, append-only DB permissions, and a <code class="text-brand-100">verify</code> task that finds any edited or deleted entry.</span></li>
+          <li class="flex gap-3"><span class="text-brand-400">◆</span><span><b class="text-white">Retention policies.</b> Per-model retention, automatic archiving to S3, and GDPR/DPDP erasure that keeps the chain verifiable.</span></li>
+          <li class="flex gap-3"><span class="text-brand-400">◆</span><span><b class="text-white">Auditor-ready reports.</b> Access reviews, privileged-activity reports and per-subject access history, exported to PDF/CSV.</span></li>
+          <li class="flex gap-3"><span class="text-brand-400">◆</span><span><b class="text-white">Admin UI.</b> A mountable engine to search, filter and export the trail.</span></li>
+          <li class="flex gap-3"><span class="text-brand-400">◆</span><span><b class="text-white">Priority email support.</b></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE MAPPING -->
+<section id="compliance" class="mx-auto max-w-6xl px-6 py-20">
+  <div class="max-w-3xl">
+    <p class="text-sm font-semibold uppercase tracking-wider text-brand-600">Compliance mapping</p>
+    <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">Evidence for the controls auditors ask about</h2>
+    <p class="mt-4 text-lg text-slate-600">SealedTrail helps you produce evidence for these requirements. It doesn't make you compliant on its own. That still takes your policies, people and auditor.</p>
+  </div>
+  <div class="mt-10 overflow-hidden rounded-2xl ring-1 ring-slate-200">
+    <table class="w-full text-left text-sm">
+      <thead class="bg-slate-50 text-slate-900">
+        <tr><th class="px-6 py-4 font-semibold">Framework</th><th class="px-6 py-4 font-semibold">Requirement</th><th class="px-6 py-4 font-semibold">How SealedTrail helps</th></tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200 text-slate-600">
+        <tr><td class="px-6 py-4 font-semibold text-slate-900">HIPAA</td><td class="px-6 py-4">Security Rule §164.312(b) audit controls; §164.308(a)(1)(ii)(D) activity review</td><td class="px-6 py-4">Logs reads and changes of PHI per user; access reports for periodic review</td></tr>
+        <tr><td class="px-6 py-4 font-semibold text-slate-900">SOC 2</td><td class="px-6 py-4">Common Criteria on logical access and system monitoring (CC6, CC7)</td><td class="px-6 py-4">Privileged-activity and access-review reports; integrity verification of logs</td></tr>
+        <tr><td class="px-6 py-4 font-semibold text-slate-900">GDPR</td><td class="px-6 py-4">Art. 5(1)(f) &amp; 32 security of processing; Art. 15 access; Art. 17 erasure</td><td class="px-6 py-4">Per-subject access history; erasure that redacts personal data without breaking the chain</td></tr>
+        <tr><td class="px-6 py-4 font-semibold text-slate-900">India DPDP</td><td class="px-6 py-4">DPDP Rules 2025, Rule 6: access monitoring and keeping logs for one year</td><td class="px-6 py-4">Read/write logging plus enforced 1-year (or longer) retention policies</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="bg-slate-950 py-20 grid-bg">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-sm font-semibold uppercase tracking-wider text-brand-400">Pricing</p>
+      <h2 class="mt-2 text-3xl font-bold tracking-tight text-white">One price per app. No per-event fees.</h2>
+      <p class="mt-4 text-slate-400">Your logs stay in your database, so you never pay per million events.</p>
+    </div>
+    <div class="mt-12 grid gap-6 lg:grid-cols-3">
+      <div class="rounded-2xl bg-white/5 p-8 ring-1 ring-white/10">
+        <h3 class="font-semibold text-white">Core</h3>
+        <p class="mt-4"><span class="text-4xl font-extrabold text-white">$0</span></p>
+        <p class="mt-2 text-sm text-slate-400">Open source, MIT licence</p>
+        <ul class="mt-6 space-y-2 text-sm text-slate-300"><li>✓ Change auditing</li><li>✓ Actor &amp; request context</li><li>✓ PII masking</li></ul>
+        <a href="#" class="mt-8 block rounded-lg px-4 py-2.5 text-center text-sm font-semibold text-white ring-1 ring-white/20 hover:bg-white/10">Star on GitHub (soon)</a>
+      </div>
+      <div class="relative rounded-2xl bg-white p-8 shadow-2xl ring-2 ring-brand-500">
+        <span class="absolute -top-3 left-8 rounded-full bg-brand-500 px-3 py-1 text-xs font-bold text-white">EARLY ACCESS</span>
+        <h3 class="font-semibold text-slate-900">Pro — founding customer</h3>
+        <p class="mt-4"><span class="text-4xl font-extrabold text-slate-900">$499</span><span class="text-slate-500">/year</span> <span class="ml-2 text-sm text-slate-400 line-through">$999</span></p>
+        <p class="mt-2 text-sm text-slate-500">Price locked for as long as you renew</p>
+        <ul class="mt-6 space-y-2 text-sm text-slate-700"><li>✓ Everything in Pro</li><li>✓ Unlimited apps in one company</li><li>✓ Help shape the roadmap with the developer</li><li>✓ 30-minute setup call</li><li>✓ Full refund if v1.0 slips</li></ul>
+        <a href="mailto:steadybyte.hq@gmail.com?subject=SealedTrail%20early%20access" class="mt-8 block rounded-lg bg-brand-500 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-brand-600">Pre-order now</a>
+      </div>
+      <div class="rounded-2xl bg-white/5 p-8 ring-1 ring-white/10">
+        <h3 class="font-semibold text-white">Enterprise</h3>
+        <p class="mt-4"><span class="text-4xl font-extrabold text-white">$2,499</span><span class="text-slate-400">/year</span></p>
+        <p class="mt-2 text-sm text-slate-400">For regulated teams with procurement</p>
+        <ul class="mt-6 space-y-2 text-sm text-slate-300"><li>✓ Everything in Pro</li><li>✓ Security questionnaire &amp; DPA</li><li>✓ Priority support SLA</li><li>✓ Invoicing / PO billing</li></ul>
+        <a href="mailto:steadybyte.hq@gmail.com" class="mt-8 block rounded-lg px-4 py-2.5 text-center text-sm font-semibold text-white ring-1 ring-white/20 hover:bg-white/10">Talk to us</a>
+      </div>
+    </div>
+    <p class="mt-8 text-center text-sm text-slate-500">Regular Pro price after launch: $999/year. Prices in USD; Lemon Squeezy handles VAT/GST.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="mx-auto max-w-3xl px-6 py-20">
+  <h2 class="text-3xl font-bold tracking-tight text-slate-900">Frequently asked questions</h2>
+  <div class="mt-8 divide-y divide-slate-200">
+    <details class="group py-5" open><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">When does it ship?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">Founding customers get private beta builds as features land, and v1.0 by the date shown at checkout. If v1.0 isn't delivered by then, you get a full refund on request.</p></details>
+    <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Do I have to remove paper_trail or audited?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">No. Keep using them for versioning and undo if you like. SealedTrail adds access logging, integrity and retention on top, and can import your existing history.</p></details>
+    <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Does my data leave my servers?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">No. SealedTrail is a gem, not a SaaS. Logs live in your own database (and optionally your own S3 bucket). That makes it simpler for PHI and personal data, because there's no extra sub-processor or BAA.</p></details>
+    <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Won't logging every read slow my app down?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">Read logging is opt-in per model and written in batches after the response, with an async ActiveJob mode for high-traffic endpoints.</p></details>
+    <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">How does "tamper-evident" work with GDPR erasure?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">Each entry's hash covers a fingerprint of its personal data, not the raw values. Erasure redacts the values but keeps the fingerprint, so the chain still verifies.</p></details>
+    <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Does this make us SOC 2 / HIPAA compliant?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">No tool can do that by itself. SealedTrail covers the audit-logging part and produces evidence your auditor can review. Policies, access reviews and the rest of your programme are still yours.</p></details>
+    <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">What does the licence cover?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">One company and unlimited apps, delivered through a private gem source. Renew yearly for updates and support. If you stop renewing, the version you have keeps working.</p></details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="mx-auto mb-20 max-w-6xl px-6">
+  <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-600 to-brand-900 px-8 py-14 text-center">
+    <h2 class="text-3xl font-bold text-white">Have an audit coming up?</h2>
+    <p class="mx-auto mt-3 max-w-xl text-brand-100">Lock in the founding price of $499/year, or book a 15-minute call to check that SealedTrail fits your app.</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="mailto:steadybyte.hq@gmail.com?subject=SealedTrail%20early%20access" class="rounded-lg bg-white px-6 py-3 font-semibold text-brand-700 hover:bg-brand-50">Pre-order for $499/yr</a>
+      <a href="mailto:steadybyte.hq@gmail.com?subject=SealedTrail%20call" class="rounded-lg px-6 py-3 font-semibold text-white ring-1 ring-white/40 hover:bg-white/10">Book a 15-min call</a>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-slate-200 py-10">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 text-sm text-slate-500 md:flex-row">
+    <p>© 2026 SealedTrail. Built by a Rails developer with 11 years of experience.</p>
+    <p>Not legal advice. Trademarks belong to their owners.</p>
+  </div>
+</footer>
+</body>
+</html>

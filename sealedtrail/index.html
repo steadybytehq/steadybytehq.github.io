@@ -57,7 +57,7 @@
         <a href="mailto:steadybyte.hq@gmail.com?subject=SealedTrail%20early%20access" class="rounded-lg bg-brand-500 px-6 py-3 font-semibold text-white shadow-lg shadow-brand-500/30 hover:bg-brand-600">Pre-order for $499/yr</a>
         <a href="#features" class="rounded-lg px-6 py-3 font-semibold text-white ring-1 ring-white/20 hover:bg-white/10">See what's included →</a>
       </div>
-      <p class="mt-4 text-sm text-slate-400">Full refund if we don't ship v1.0 to you by the promised date. Lives in your own database: no SaaS, no data leaves your app.</p>
+      <p class="mt-4 text-sm text-slate-400">Beta for founding customers in December 2026, v1.0 by 31 January 2027, or a full refund. Lives in your own database: no SaaS, no data leaves your app.</p>
     </div>
     <div class="rounded-2xl bg-slate-900/80 p-1 shadow-2xl ring-1 ring-white/10">
       <div class="flex items-center gap-1.5 border-b border-white/5 px-4 py-3">
@@ -184,7 +184,7 @@ $ bin/rails sealed_trail:verify
         <h3 class="font-semibold text-slate-900">Pro — founding customer</h3>
         <p class="mt-4"><span class="text-4xl font-extrabold text-slate-900">$499</span><span class="text-slate-500">/year</span> <span class="ml-2 text-sm text-slate-400 line-through">$999</span></p>
         <p class="mt-2 text-sm text-slate-500">Price locked for as long as you renew</p>
-        <ul class="mt-6 space-y-2 text-sm text-slate-700"><li>✓ Everything in Pro</li><li>✓ Unlimited apps in one company</li><li>✓ Help shape the roadmap with the developer</li><li>✓ 30-minute setup call</li><li>✓ Full refund if v1.0 slips</li></ul>
+        <ul class="mt-6 space-y-2 text-sm text-slate-700"><li>✓ Everything in Pro</li><li>✓ Unlimited apps in one company</li><li>✓ Help shape the roadmap with the developer</li><li>✓ 30-minute setup call</li><li>✓ Full refund if v1.0 isn't delivered by 31 Jan 2027</li></ul>
         <a href="mailto:steadybyte.hq@gmail.com?subject=SealedTrail%20early%20access" class="mt-8 block rounded-lg bg-brand-500 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-brand-600">Pre-order now</a>
       </div>
       <div class="rounded-2xl bg-white/5 p-8 ring-1 ring-white/10">
@@ -203,7 +203,7 @@ $ bin/rails sealed_trail:verify
 <section id="faq" class="mx-auto max-w-3xl px-6 py-20">
   <h2 class="text-3xl font-bold tracking-tight text-slate-900">Frequently asked questions</h2>
   <div class="mt-8 divide-y divide-slate-200">
-    <details class="group py-5" open><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">When does it ship?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">Founding customers get private beta builds as features land, and v1.0 by the date shown at checkout. If v1.0 isn't delivered by then, you get a full refund on request.</p></details>
+    <details class="group py-5" open><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">When does it ship?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">Founding customers get the first private beta in December 2026, with new builds as features land, and v1.0 by 31 January 2027. If v1.0 isn't delivered by then, you get a full refund on request.</p></details>
     <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Do I have to remove paper_trail or audited?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">No. Keep using them for versioning and undo if you like. SealedTrail adds access logging, integrity and retention on top, and can import your existing history.</p></details>
     <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Does my data leave my servers?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">No. SealedTrail is a gem, not a SaaS. Logs live in your own database (and optionally your own S3 bucket). That makes it simpler for PHI and personal data, because there's no extra sub-processor or BAA.</p></details>
     <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Won't logging every read slow my app down?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">Read logging is opt-in per model and written in batches after the response, with an async ActiveJob mode for high-traffic endpoints.</p></details>

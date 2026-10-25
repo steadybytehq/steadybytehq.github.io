@@ -64,12 +64,11 @@
     <div class="rounded-2xl bg-slate-900/80 p-1 shadow-2xl ring-1 ring-white/10">
       <div class="flex items-center gap-1.5 border-b border-white/5 px-4 py-3">
         <span class="h-3 w-3 rounded-full bg-red-400/70"></span><span class="h-3 w-3 rounded-full bg-yellow-400/70"></span><span class="h-3 w-3 rounded-full bg-green-400/70"></span>
-        <span class="ml-3 font-mono text-xs text-slate-500">app/models/patient.rb</span>
+        <span class="ml-3 font-mono text-xs text-slate-500">app/models/patient.rb · Pro (planned API)</span>
       </div>
 <pre class="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-slate-300"><span class="text-pink-400">class</span> <span class="text-sky-300">Patient</span> &lt; <span class="text-sky-300">ApplicationRecord</span>
-  <span class="text-emerald-300">sealed_trail</span> <span class="text-amber-300">sensitive:</span> %i[dob diagnosis ssn],
-               <span class="text-amber-300">track_reads:</span> <span class="text-pink-400">true</span>,
-               <span class="text-amber-300">retain_for:</span> <span class="text-violet-300">6</span>.years
+  <span class="text-emerald-300">has_sealed_trail</span> <span class="text-amber-300">track_reads:</span> <span class="text-pink-400">true</span>,
+                   <span class="text-amber-300">retain_for:</span> <span class="text-violet-300">6</span>.years
 <span class="text-pink-400">end</span>
 
 <span class="text-slate-500"># Who looked at this patient last week?</span>
@@ -77,7 +76,7 @@
 
 <span class="text-slate-500"># Prove nothing was altered or deleted</span>
 $ bin/rails sealed_trail:verify
-<span class="text-emerald-400">✓ 1,284,301 entries · hash chain intact · 0 gaps</span></pre>
+<span class="text-emerald-400">✓ hash chain intact · 0 edited · 0 missing</span>  <span class="text-slate-500"># example output</span></pre>
     </div>
   </div>
 </section>
@@ -87,13 +86,13 @@ $ bin/rails sealed_trail:verify
   <div class="max-w-3xl">
     <p class="text-sm font-semibold uppercase tracking-wider text-brand-600">The problem</p>
     <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">paper_trail tracks changes. Auditors ask about access.</h2>
-    <p class="mt-4 text-lg text-slate-600">Change-history gems are great for "what did this record look like yesterday?" But when an audit comes, the questions are different, and most Rails teams end up hand-rolling the answers the week before the auditor arrives.</p>
+    <p class="mt-4 text-lg text-slate-600">Change-history gems are great for "what did this record look like yesterday?" But when an audit comes, the questions are different, and teams often end up hand-rolling the answers shortly before the auditor arrives.</p>
   </div>
   <div class="mt-12 grid gap-6 md:grid-cols-3">
     <div class="rounded-2xl border border-slate-200 p-6">
       <div class="text-2xl">👁️</div>
       <h3 class="mt-3 font-semibold text-slate-900">"Who viewed this patient's record?"</h3>
-      <p class="mt-2 text-sm text-slate-600">Change-tracking gems only log writes. Logging reads and exports of sensitive data means custom controller hooks in every action.</p>
+      <p class="mt-2 text-sm text-slate-600">Change-tracking gems record writes, not reads. Logging views and exports of sensitive data means custom hooks in every action that shows or exports it.</p>
     </div>
     <div class="rounded-2xl border border-slate-200 p-6">
       <div class="text-2xl">🔏</div>
@@ -103,7 +102,7 @@ $ bin/rails sealed_trail:verify
     <div class="rounded-2xl border border-slate-200 p-6">
       <div class="text-2xl">🗄️</div>
       <h3 class="mt-3 font-semibold text-slate-900">"What's your retention policy, and is it enforced?"</h3>
-      <p class="mt-2 text-sm text-slate-600">Versions tables quietly grow to hundreds of GB, while GDPR erasure requests collide with "never delete audit data".</p>
+      <p class="mt-2 text-sm text-slate-600">Audit tables keep growing until someone prunes them, while GDPR erasure requests collide with "never delete audit data".</p>
     </div>
   </div>
 </section>
@@ -212,8 +211,8 @@ $ bin/rails sealed_trail:verify
   <h2 class="text-3xl font-bold tracking-tight text-slate-900">Frequently asked questions</h2>
   <div class="mt-8 divide-y divide-slate-200">
     <details class="group py-5" open><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">When does it ship?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">Founding customers get the first private beta in December 2026, with new builds as features land, and v1.0 by 31 January 2027. If v1.0 isn't delivered by then, you get a full refund on request.</p></details>
-    <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Do I have to remove paper_trail or audited?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">No. Keep using them for versioning and undo if you like. SealedTrail adds access logging, integrity and retention on top, and can import your existing history.</p></details>
-    <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Does my data leave my servers?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">No. SealedTrail is a gem, not a SaaS. Logs live in your own database (and optionally your own S3 bucket). That makes it simpler for PHI and personal data, because there's no extra sub-processor or BAA.</p></details>
+    <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Do I have to remove paper_trail or audited?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">No. Keep using them for versioning and undo if you like. SealedTrail Pro is designed to add access logging, integrity checks and retention on top, and to import your existing history.</p></details>
+    <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Does my data leave my servers?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">No. SealedTrail is a gem, not a SaaS. Logs live in your own database (and optionally your own S3 bucket). That keeps things simpler for PHI and personal data, because no audit data is sent to us or any other third party.</p></details>
     <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Won't logging every read slow my app down?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">Read logging is opt-in per model and written in batches after the response, with an async ActiveJob mode for high-traffic endpoints.</p></details>
     <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">How does "tamper-evident" work with GDPR erasure?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">Each entry's hash covers a fingerprint of its personal data, not the raw values. Erasure redacts the values but keeps the fingerprint, so the chain still verifies.</p></details>
     <details class="group py-5"><summary class="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-900">Does this make us SOC 2 / HIPAA compliant?<span class="text-slate-400 group-open:rotate-45 transition">+</span></summary><p class="mt-3 text-slate-600">No tool can do that by itself. SealedTrail covers the audit-logging part and produces evidence your auditor can review. Policies, access reviews and the rest of your programme are still yours.</p></details>
